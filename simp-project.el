@@ -107,7 +107,7 @@ correct project and set it"
           (if found-project
               (progn
                 (plist-put project :root (directory-file-name found-project))
-                (return (setq simp-buffer-project project)))))))
+                (set (make-local-variable 'simp-buffer-project) (copy-sequence project)))))))
   (if simp-buffer-project
       simp-buffer-project
     (error "simp did not find a project to work with :(")))

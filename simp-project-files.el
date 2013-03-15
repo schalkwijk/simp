@@ -77,13 +77,12 @@ ignored paths, using the unix find command for speedy results."
      'identity
      `("find -L"
        ,project-root
-       "\\("
+       "-not \\( \\("
        ,(format "-path \\*/%s" (car (simp-project-ignored)))
        ,(mapconcat (lambda (dir)
                      (format "-o -path \\*/%s" (symbol-name dir)))
                    (cdr (simp-project-ignored)) " ")
-       "\\)"
-       "-prune -o -type f"
+       "\\) -prune \\) -and \\( -type f -o -type d \\)"
        ,(format "| sed -E s:'%s/'::" project-root)
        ) " ")))
 

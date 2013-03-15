@@ -68,6 +68,7 @@ current region, or the (symbol) thing at point"
   (interactive)
   (simp-project-buffer-rgrep
    (lambda ()
+     (grep-compute-defaults)
      (let ((search-for (if (region-active-p)
                            (buffer-substring (region-beginning) (region-end))
                          (thing-at-point 'symbol))))
