@@ -136,15 +136,21 @@ to see if they exist in DIR"
       (plist-get (simp-project-for-current-buffer) member)))
 
 (defun simp-project-root ()
-  "get the current buffers project root"
+  "get the current buffer's project root"
   (simp-project-get :root))
 
-(defun simp-project-ignored ()
-  "get the current buffers project ignored paths"
-  (simp-project-get :ignore))
+(defun simp-project-ignored-directories ()
+  "get the current buffer's project ignored directories"
+  ;; Although :ignored is deprecated, we still use it so as to
+  ;; not break existing usages of the library
+  (or (simp-project-get :ignore-directories) (simp-project-get :ignore)))
+
+(defun simp-project-ignored-files ()
+  "get the current buffer's project ignored files"
+  (simp-project-get :ignore-files))
 
 (defun simp-project-type ()
-  "get the current buffer project type"
+  "get the current buffer's project type"
   (simp-project-get :type))
 
 (defun simp-project-define (project)

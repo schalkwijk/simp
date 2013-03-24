@@ -34,6 +34,7 @@
 ;; If you want to use any or some of these without everything, require
 ;; just the things you want.
 
+(require 'simp-project)
 (require 'simp-project-files)
 (require 'simp-project-rgrep)
 (require 'simp-project-root-dired)

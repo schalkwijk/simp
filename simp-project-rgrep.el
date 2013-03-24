@@ -42,15 +42,24 @@
 (defun simp-project-buffer-rgrep (fn)
   "add project's ignored paths to the rgrep's ignored"
   (let* ((default-directory (simp-project-root))
-         (original-ignored grep-find-ignored-directories)
+         (original-ignored-dirs grep-find-ignored-directories)
+         (original-ignored-files grep-find-ignored-files)
          (grep-find-ignored-directories
           (condition-case nil
-              (append original-ignored
+              (append original-ignored-dirs
                       (mapcar
                        (lambda (dir)
                          (symbol-name dir))
-                       (simp-project-ignored)))
-            (error original-ignored))))
+                       (simp-project-ignored-directories)))
+            (error original-ignored-dirs)))
+         (grep-find-ignored-files
+          (condition-case nil
+              (append original-ignored-files
+                      (mapcar
+                       (lambda (file)
+                         (symbol-name file))
+                       (simp-project-ignored-files)))
+            (error original-ignored-files))))
     (funcall fn)))
 
 (defun simp-project-rgrep ()
